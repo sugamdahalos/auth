@@ -1,15 +1,15 @@
 from rest_framework import serializers
 from .models import User, UserProfile
 
+from rest_framework import serializers
+from .models import User
+
 class UserSerializer(serializers.ModelSerializer):
     """User serializer for creating and updating users."""
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name', 'is_active', 'is_staff', 'password']
-    
-    def create(self, validated_data):
-        # Use the `create_user` method to properly hash the password
-        return User.objects.create_user(**validated_data)
+        fields = ['email', 'first_name', 'last_name', 'is_active', 'is_staff']
+
 
 class UserProfileSerializer(serializers.ModelSerializer):
     """User profile serializer for creating and updating user profiles."""
@@ -24,3 +24,18 @@ class UserProfileSerializer(serializers.ModelSerializer):
         instance.social_media_link = validated_data.get('social_media_link', instance.social_media_link)
         instance.save()
         return instance
+
+
+class UserRegistrationSerializer(serializers.ModelSerializer):
+    """Serializer for user registration."""
+    password = serializers.CharField(write_only=True)  # Include password field for registration
+
+    class Meta:
+        model = User
+        fields = ['email', 'first_name', 'last_name', 'password']
+
+    def create(self, validated_data):
+        # Extract and hash the password
+        password = validated_data.pop('password')
+        user = User.objects.create_user(password=password, **validated_data)
+        return user

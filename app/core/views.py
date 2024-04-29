@@ -3,7 +3,7 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
-from .serializers import UserSerializer, UserProfileSerializer
+from .serializers import UserSerializer, UserProfileSerializer, UserRegistrationSerializer
 from .models import User, UserProfile
 
 class LoginView(generics.GenericAPIView):
@@ -34,7 +34,7 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
 
 class RegisterView(generics.GenericAPIView):
     """Register view for creating new users."""
-    serializer_class = UserSerializer
+    serializer_class = UserRegistrationSerializer
 
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
