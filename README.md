@@ -6,4 +6,4 @@
 
 if docker-compose up didnt work do docker-compose down and again docker-compose up
 
-visit link localhost:8000/api/schema/swagger_ui # for api documentation/ api endpoints details
+visit link localhost:8000/api/schema/swagger-ui # for api documentation/ api endpoints details
