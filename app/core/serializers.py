@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import User, UserProfile
 
 class UserSerializer(serializers.ModelSerializer):
+    """User serializer for creating and updating users."""
     class Meta:
         model = User
         fields = ['email', 'first_name', 'last_name', 'is_active', 'is_staff', 'password']
@@ -11,6 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
         return User.objects.create_user(**validated_data)
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    """User profile serializer for creating and updating user profiles."""
     class Meta:
         model = UserProfile
         fields = ['bio', 'profile_picture', 'website', 'social_media_link']

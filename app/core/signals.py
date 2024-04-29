@@ -7,9 +7,11 @@ User = get_user_model()
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
+    """Signal for creating user profile when a new user is created."""
     if created:
         UserProfile.objects.create(user=instance)
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
+    """Signal for saving user profile when a user is updated."""
     instance.userprofile.save()

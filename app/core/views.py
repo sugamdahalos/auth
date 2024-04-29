@@ -7,6 +7,7 @@ from .serializers import UserSerializer, UserProfileSerializer
 from .models import User, UserProfile
 
 class LoginView(generics.GenericAPIView):
+    """Login view for authenticating users."""
     serializer_class = UserSerializer
 
     def post(self, request):
@@ -22,6 +23,7 @@ class LoginView(generics.GenericAPIView):
         return Response({'detail': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 class UserProfileView(generics.RetrieveUpdateAPIView):
+    """User profile view for retrieving and updating user profiles."""
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
     permission_classes = [IsAuthenticated]
@@ -31,6 +33,7 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
 
 
 class RegisterView(generics.GenericAPIView):
+    """Register view for creating new users."""
     serializer_class = UserSerializer
 
     def post(self, request):
